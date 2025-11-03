@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Cutie+Patootie&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  /* Ensure Cute Animals theme uses Cutie Patootie across the app */
+  [data-theme="cute-animals"] body {
+    font-family: 'Cutie Patootie', cursive;
+  }
+  /* Cute Animals Theme */
+  :root,
+  [data-theme="cute-animals"] {
+    --background: 40 50% 97%;
+    --foreground: 210 20% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 20% 20%;
+    --primary: 340 82% 75%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 270 70% 90%;
+    --secondary-foreground: 270 20% 20%;
+    --accent: 45 100% 70%;
+    --accent-foreground: 45 20% 20%;
+    --muted: 40 40% 94%;
+    --muted-foreground: 210 10% 50%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 340 30% 88%;
+    --input: 340 30% 88%;
+    --ring: 340 82% 75%;
+    --radius: 1rem;
+    --calc-display: 0 0% 100%;
+    --calc-button: 340 70% 92%;
+    --calc-button-hover: 340 82% 85%;
+    --calc-operator: 270 70% 90%;
+    --calc-operator-hover: 270 80% 85%;
+  }
+
+  /* Glassmorphism Theme */
+  [data-theme="glassmorphism"] {
+    /* Monochrome, premium glass */
+    --background: 0 0% 6%; /* #0F0F0F */
+    --foreground: 0 0% 100%;
+    --card: 0 0% 10%; /* #1A1A1A base under glass */
+    --card-foreground: 0 0% 100%;
+    --primary: 204 100% 70%; /* soft blue accent for ops text if needed */
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 16%;
+    --secondary-foreground: 0 0% 90%;
+    --accent: 204 100% 70%;
+    --accent-foreground: 0 0% 0%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 88%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 20%; /* subtle border; glass class applies rgba(255,255,255,0.1) */
+    --input: 0 0% 20%;
+    --ring: 204 100% 70%;
+    --radius: 1rem; /* 16px */
+    /* Display and buttons approximate rgba values without alpha */
+    --calc-display: 240 14% 14%; /* ~rgba(30,30,40,0.6) base tone */
+    --calc-button: 0 0% 16%; /* glass base behind translucency */
+    --calc-button-hover: 0 0% 22%;
+    --calc-operator: 204 100% 70%; /* soft blue tint */
+    --calc-operator-hover: 204 100% 75%;
+  }
+
+  /* Linux Terminal Theme */
+  [data-theme="terminal"] {
+    --background: 0 0% 0%;
+    --foreground: 120 100% 50%;
+    --card: 0 0% 5%;
+    --card-foreground: 120 100% 50%;
+    --primary: 120 100% 40%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 120 80% 30%;
+    --secondary-foreground: 120 100% 50%;
+    --accent: 120 100% 50%;
+    --accent-foreground: 0 0% 0%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 120 50% 40%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 0%;
+    --border: 120 50% 30%;
+    --input: 120 50% 30%;
+    --ring: 120 100% 50%;
+    --radius: 0.25rem;
+    --calc-display: 0 0% 5%;
+    --calc-button: 0 0% 10%;
+    --calc-button-hover: 120 50% 15%;
+    --calc-operator: 120 80% 25%;
+    --calc-operator-hover: 120 100% 35%;
+  }
+
+  /* macOS Theme (Dark, refined) */
+  [data-theme="macos"] {
+    --background: 0 0% 11%; /* #1D1D1D */
+    --foreground: 0 0% 100%;
+    --card: 0 0% 13%;
+    --card-foreground: 0 0% 100%;
+    --primary: 33 100% 50%; /* Apple orange #FF9500 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 95%;
+    --accent: 33 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 88%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 20%; /* very subtle borders */
+    --input: 0 0% 20%;
+    --ring: 33 100% 50%;
+    --radius: 0.5rem; /* 8px */
+    --calc-display: 0 0% 11%; /* same as background */
+    --calc-button: 0 0% 23%; /* #3A3A3A */
+    --calc-button-hover: 0 0% 27%; /* #454545 */
+    --calc-operator: 33 100% 50%; /* #FF9500 */
+    --calc-operator-hover: 33 100% 45%;
+  }
+
+  /* iOS Theme (Classic dark) */
+  [data-theme="ios"] {
+    --background: 0 0% 0%; /* pure black */
+    --foreground: 0 0% 100%;
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+    --primary: 33 100% 50%; /* #FF9500 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 11%; /* keypad group bg #1C1C1C */
+    --secondary-foreground: 0 0% 95%;
+    --accent: 33 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --muted: 0 0% 11%;
+    --muted-foreground: 0 0% 88%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 10%; /* minimal borders */
+    --input: 0 0% 10%;
+    --ring: 33 100% 50%;
+    --radius: 0.75rem; /* 12px */
+    --calc-display: 0 0% 0%; /* black */
+    --calc-button: 0 0% 31%; /* #505050 */
+    --calc-button-hover: 0 0% 23%; /* #3A3A3A */
+    --calc-operator: 33 100% 50%; /* #FF9500 */
+    --calc-operator-hover: 33 100% 45%;
+  }
+
+  /* Retro Theme */
+  [data-theme="retro"] {
+    --background: 280 100% 10%;
+    --foreground: 60 100% 50%;
+    --card: 280 80% 15%;
+    --card-foreground: 60 100% 50%;
+    --primary: 330 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 180 100% 50%;
+    --secondary-foreground: 0 0% 0%;
+    --accent: 60 100% 50%;
+    --accent-foreground: 280 100% 10%;
+    --muted: 280 50% 20%;
+    --muted-foreground: 60 80% 60%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 0%;
+    --border: 330 100% 50%;
+    --input: 330 100% 50%;
+    --ring: 330 100% 50%;
+    --radius: 0rem;
+    --calc-display: 280 100% 5%;
+    --calc-button: 280 80% 20%;
+    --calc-button-hover: 330 100% 50%;
+    --calc-operator: 330 100% 50%;
+    --calc-operator-hover: 60 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border transition-colors duration-200;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Removed gradient for Glassmorphism: keep deep black background per spec */
+
+  /* Terminal font */
+  [data-theme="terminal"] body {
+    font-family: 'Courier New', monospace;
+  }
+
+  /* Apple system font */
+  [data-theme="macos"] body,
+  [data-theme="ios"] body {
+    font-family: "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Retro font */
+  [data-theme="retro"] body {
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+  }
+}
+
+@layer components {
+  /* Cute Animals theme: apply Cutie Patootie font and larger sizes */
+  .cute-animals-theme {
+    font-family: 'Cutie Patootie', cursive;
+  }
+  .cute-animals-theme .calculator-display .result {
+    font-size: 3rem;
+  }
+  .cute-animals-theme .calculator-buttons .button {
+    font-size: 1.75rem;
+  }
+  /* Apple typography selector classes for container-level control */
+  .ios-theme,
+  .macos-theme {
+    font-family: -apple-system, BlinkMacSystemFont, "system-ui", "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  }
+
+  /* --- iOS Theme Specifics --- */
+  .ios-theme .calculator-display .result {
+    font-size: 2.5rem; /* ~40px */
+    font-weight: 300; /* Light for large display text */
+    letter-spacing: 0.5px;
+  }
+  .ios-theme .calculator-buttons .button {
+    font-size: 1.5rem; /* ~24px */
+    font-weight: 400; /* Regular for buttons */
+  }
+
+  /* --- macOS Theme Specifics --- */
+  .macos-theme .calculator-display .result {
+    font-size: 2.75rem; /* ~44px */
+    font-weight: 300; /* Light, slightly larger for macOS */
+    letter-spacing: 0.5px;
+  }
+  .macos-theme .calculator-buttons .button {
+    font-size: 1.25rem; /* ~20px */
+    font-weight: 500; /* Medium for clarity */
+  }
+  /* Improve numeral alignment for calculator display on Apple themes */
+  [data-theme="ios"] .calc-display-text,
+  [data-theme="macos"] .calc-display-text {
+    font-variant-numeric: tabular-nums;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Glassmorphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px) saturate(160%);
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  /* Enhanced glass for glassmorphism theme */
+  [data-theme="glassmorphism"] .glass {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  /* Calculator button animations */
+  .calc-button {
+    @apply transition-all duration-300;
+  }
+  .calc-button:hover { transform: scale(1.05); }
+  .calc-button:active { transform: scale(0.95); }
+
+  /* Paw print animation */
+  @keyframes paw-float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+  }
+
+  .paw-float {
+    animation: paw-float 3s ease-in-out infinite;
+  }
+
+  /* Terminal cursor */
+  @keyframes cursor-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  .terminal-cursor {
+    animation: cursor-blink 1s step-end infinite;
+  }
+
+  /* Retro glow */
+  [data-theme="retro"] .calc-button:hover {
+    box-shadow: 0 0 20px currentColor;
+  }
+
+  /* Smooth theme transition */
+  * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+}
+
+@layer utilities {
+  /* Modal animations */
+  @keyframes modal-slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .modal-slide-up {
+    animation: modal-slide-up 0.3s ease-out;
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .fade-in {
+    animation: fade-in 0.2s ease-out;
+  }
+
+  /* Button press effect */
+  .button-press:active {
+    transform: scale(0.95);
+  }
+}
