@@ -212,6 +212,67 @@ All colors MUST be HSL.
 }
 
 @layer components {
+  /* Glassmorphism light background blobs when theme is active */
+  body.glassmorphism-theme-active {
+    background-color: #000000; /* Black */
+    background-image: none; /* NO GRADIENTS */
+    color: #ffffff; /* default text on page (outside panels) */
+  }
+
+  /* Main white glass pane */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    color: #ffffff; /* default: WHITE text inside panels for black bg */
+  }
+  .glass-panel *,
+  .glass-panel .display, .glass-panel .display * { color: #ffffff !important; }
+  /* Optional override: if using a sky-blue background variant, keep text black */
+  body.glass-sky .glass-panel,
+  body.glass-sky .glass-panel *,
+  body.glass-sky .glass-button { color: #000000 !important; }
+
+  /* ALL text inside glass panels should be dark */
+  .glass-panel-text,
+  .glass-button { color: #1a202c; font-weight: 600; }
+
+  /* Glass buttons */
+  .glass-button {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    color: #ffffff !important; /* WHITE TEXT by default */
+    font-weight: 600;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+  .glass-panel .button { color: #ffffff !important; }
+  .glass-button:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-2px); }
+  .glass-button:active { background: rgba(255, 255, 255, 0.3); transform: translateY(0); }
+
+  /* Ultra-transparent glass card (Apple-like) for calculator shell */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.06); /* extra transparent */
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    border-radius: 20px;
+  }
+
+  /* Display styling */
+  .glass-panel .display {
+    background: rgba(255, 255, 255, 0.5);
+    color: #1f2937;
+    font-size: 2.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
   /* Cute Animals theme: apply Cutie Patootie font and larger sizes */
   .cute-animals-theme {
     font-family: 'Cutie Patootie', cursive;
@@ -299,6 +360,16 @@ All colors MUST be HSL.
 
   .terminal-cursor {
     animation: cursor-blink 1s step-end infinite;
+  }
+
+  /* Progress bar shimmer animation */
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s ease-in-out infinite;
   }
 
   /* Retro glow */

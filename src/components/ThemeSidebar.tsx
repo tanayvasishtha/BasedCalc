@@ -3,39 +3,39 @@ import { useTheme, Theme } from '@/contexts/ThemeContext';
 import { Button } from '@/components/ui/button';
 
 const themes: { id: Theme; name: string; icon: React.ReactNode; description: string }[] = [
-  { 
-    id: 'cute-animals', 
-    name: 'Cute Animals', 
+  {
+    id: 'cute-animals',
+    name: 'Cute Animals',
     icon: <Sparkles className="w-5 h-5" />,
     description: '🐾 Warm & playful'
   },
-  { 
-    id: 'glassmorphism', 
-    name: 'Glass', 
+  {
+    id: 'glassmorphism',
+    name: 'Glass',
     icon: <Palette className="w-5 h-5" />,
     description: 'Modern & premium'
   },
-  { 
-    id: 'terminal', 
-    name: 'Terminal', 
+  {
+    id: 'terminal',
+    name: 'Terminal',
     icon: <Terminal className="w-5 h-5" />,
     description: 'Hacker aesthetic'
   },
-  { 
-    id: 'macos', 
-    name: 'macOS', 
+  {
+    id: 'macos',
+    name: 'macOS',
     icon: <Apple className="w-5 h-5" />,
     description: 'Clean & minimal'
   },
-  { 
-    id: 'ios', 
-    name: 'iOS', 
+  {
+    id: 'ios',
+    name: 'iOS',
     icon: <Smartphone className="w-5 h-5" />,
     description: 'Mobile first'
   },
-  { 
-    id: 'retro', 
-    name: 'Retro', 
+  {
+    id: 'retro',
+    name: 'Retro',
     icon: <Zap className="w-5 h-5" />,
     description: '80s vibes'
   },
@@ -45,12 +45,12 @@ export const ThemeSidebar = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <aside className={`w-64 border-r border-border bg-card p-6 space-y-4 overflow-y-auto ${theme === 'glassmorphism' ? 'glass' : ''}`}>
+    <aside className={`w-64 border-r border-border bg-card p-6 space-y-4 overflow-y-auto ${theme === 'glassmorphism' ? 'glass-panel' : ''}`}>
       <div className="space-y-2">
         <h2 className="text-2xl font-bold text-foreground">Themes</h2>
         <p className="text-sm text-muted-foreground">Choose your style</p>
       </div>
-      
+
       <div className="space-y-2">
         {themes.map((t) => (
           <Button

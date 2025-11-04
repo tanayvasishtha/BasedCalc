@@ -19,7 +19,7 @@ export const TopNav = () => {
           asChild
         >
           <a
-            href="https://github.com/yourusername/basedcalc"
+            href="https://github.com/tanayvasishtha/BasedCalc"
             target="_blank"
             rel="noopener noreferrer"
           >

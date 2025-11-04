@@ -3,8 +3,16 @@ import { ThemeSidebar } from '@/components/ThemeSidebar';
 import { TopNav } from '@/components/TopNav';
 import { Calculator } from '@/components/Calculator';
 import { CursorFollower } from '@/components/CursorFollower';
+import { ProgressBar } from '@/components/ProgressBar';
+import { RightRail } from '@/components/RightRail';
+import { useDonations } from '@/hooks/useDonations';
+import { Footer } from '@/components/Footer';
 
-const MainContent = () => {
+interface MainContentProps {
+  donationTotal: number;
+}
+
+const MainContent = ({ donationTotal }: MainContentProps) => {
   const { theme } = useTheme();
   
   return (
@@ -20,7 +28,7 @@ const MainContent = () => {
         </div>
       )}
             
-            <div className="relative z-10 w-full max-w-2xl space-y-8">
+            <div className="relative z-10 w-full max-w-2xl space-y-6">
               <div className="text-center space-y-4">
                 <h1 className="text-5xl md:text-6xl font-bold text-primary">
                   BasedCalc
@@ -32,6 +40,9 @@ const MainContent = () => {
                   </span>
                 </p>
               </div>
+              
+              {/* Progress Bar */}
+              <ProgressBar current={donationTotal} goal={100000} />
               
               <Calculator />
               
@@ -49,6 +60,8 @@ const MainContent = () => {
 };
 
 const Index = () => {
+  const { donationData } = useDonations();
+  
   return (
     <ThemeProvider>
       <div className="min-h-screen flex flex-col w-full">
@@ -56,8 +69,10 @@ const Index = () => {
         
         <div className="flex flex-1 w-full">
           <ThemeSidebar />
-          <MainContent />
+          <MainContent donationTotal={donationData.total} />
+          <RightRail donors={donationData.donors} />
         </div>
+        <Footer />
       </div>
     </ThemeProvider>
   );

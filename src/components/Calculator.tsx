@@ -102,9 +102,14 @@ export const Calculator = () => {
         break;
       case 'π':
         setDisplay(String(Math.PI));
+        // Reset any pending binary operation to avoid stale state
+        setPreviousValue(null);
+        setOperation(null);
         return;
       case 'e':
         setDisplay(String(Math.E));
+        setPreviousValue(null);
+        setOperation(null);
         return;
       case '!':
         result = factorial(Math.floor(current));
@@ -118,6 +123,7 @@ export const Calculator = () => {
       return;
     }
 
+    // Apply unary scientific result to current operand cleanly
     setDisplay(String(result));
   };
 
@@ -169,6 +175,14 @@ export const Calculator = () => {
       setShowModal(true);
       setPreviousValue(null);
       setOperation(null);
+      return;
+    }
+
+    // No pending operation: treat current display as the donation amount
+    const standalone = parseFloat(display);
+    if (!isNaN(standalone) && isFinite(standalone)) {
+      setDonationAmount(Math.abs(standalone));
+      setShowModal(true);
     }
   };
 
@@ -213,14 +227,14 @@ export const Calculator = () => {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [display, previousValue, operation]);
 
-  const buttonClass = "calc-button text-lg font-semibold h-14 rounded-[var(--radius)]";
-  const numberClass = `${buttonClass} bg-calc-button hover:bg-calc-button-hover text-foreground`;
-  const operatorClass = `${buttonClass} bg-calc-operator hover:bg-calc-operator-hover text-primary-foreground`;
-  const scientificClass = `${buttonClass} bg-secondary hover:bg-secondary/80 text-secondary-foreground text-sm`;
+  const buttonClass = `calc-button text-lg font-semibold h-14 rounded-[var(--radius)] ${theme === 'glassmorphism' ? 'glass-button' : ''}`;
+  const numberClass = `${buttonClass} bg-calc-button hover:bg-calc-button-hover ${theme === 'glassmorphism' ? '' : 'text-foreground'}`;
+  const operatorClass = `${buttonClass} bg-calc-operator hover:bg-calc-operator-hover ${theme === 'glassmorphism' ? '' : 'text-primary-foreground'}`;
+  const scientificClass = `${buttonClass} bg-secondary hover:bg-secondary/80 ${theme === 'glassmorphism' ? '' : 'text-secondary-foreground'} text-sm`;
 
   return (
     <>
-      <div className={`w-full ${mode === 'scientific' ? 'max-w-3xl' : 'max-w-md'} mx-auto p-6 rounded-[var(--radius)] bg-card border-2 border-border shadow-2xl transition-all duration-300 ${theme === 'glassmorphism' ? 'glass' : ''} ${theme === 'ios' ? 'ios-theme' : ''} ${theme === 'macos' ? 'macos-theme' : ''} ${theme === 'cute-animals' ? 'cute-animals-theme' : ''}`}>
+      <div className={`w-full ${mode === 'scientific' ? 'max-w-3xl' : 'max-w-md'} mx-auto p-6 rounded-[var(--radius)] ${theme === 'glassmorphism' ? 'glass-card' : 'bg-card border-2 border-border'} shadow-2xl transition-all duration-300 ${theme === 'glassmorphism' ? 'glass-panel' : ''} ${theme === 'ios' ? 'ios-theme' : ''} ${theme === 'macos' ? 'macos-theme' : ''} ${theme === 'cute-animals' ? 'cute-animals-theme' : ''}`}>
         {/* Decorative elements for cute animals theme */}
         {theme === 'cute-animals' && (
           <div className="absolute -top-8 -right-8 text-6xl paw-float opacity-50">
@@ -257,8 +271,8 @@ export const Calculator = () => {
         </div>
 
         {/* Display */}
-        <div className={`calculator-display mb-6 p-6 rounded-[var(--radius)] bg-calc-display border-2 border-border ${theme === 'terminal' ? 'font-mono' : ''}`}>
-          <div className="result calc-display-text text-right text-4xl font-bold text-foreground break-all min-h-[3rem] flex items-center justify-end">
+        <div className={`calculator-display display mb-6 p-6 rounded-[var(--radius)] bg-calc-display border-2 border-border ${theme === 'terminal' ? 'font-mono' : ''}`}>
+          <div className={`result calc-display-text text-right text-4xl font-bold break-all min-h-[3rem] flex items-center justify-end ${theme === 'glassmorphism' ? 'glass-panel-text' : 'text-foreground'}`}>
             {display}
             {theme === 'terminal' && <span className="terminal-cursor ml-1">_</span>}
           </div>
@@ -327,28 +341,28 @@ export const Calculator = () => {
           {/* Basic Mode Layout */}
           {mode === 'basic' && (
             <>
-              <Button onClick={handleClear} className={operatorClass}>C</Button>
-              <Button onClick={handleDelete} className={operatorClass}>DEL</Button>
-              <Button onClick={() => handleOperation('÷')} className={operatorClass}>÷</Button>
-              <Button onClick={() => handleOperation('×')} className={operatorClass}>×</Button>
+              <Button onClick={handleClear} className={`${operatorClass} button`}>C</Button>
+              <Button onClick={handleDelete} className={`${operatorClass} button`}>DEL</Button>
+              <Button onClick={() => handleOperation('÷')} className={`${operatorClass} button`}>÷</Button>
+              <Button onClick={() => handleOperation('×')} className={`${operatorClass} button`}>×</Button>
 
-              <Button onClick={() => handleNumber('7')} className={numberClass}>7</Button>
-              <Button onClick={() => handleNumber('8')} className={numberClass}>8</Button>
-              <Button onClick={() => handleNumber('9')} className={numberClass}>9</Button>
-              <Button onClick={() => handleOperation('−')} className={operatorClass}>−</Button>
+              <Button onClick={() => handleNumber('7')} className={`${numberClass} button`}>7</Button>
+              <Button onClick={() => handleNumber('8')} className={`${numberClass} button`}>8</Button>
+              <Button onClick={() => handleNumber('9')} className={`${numberClass} button`}>9</Button>
+              <Button onClick={() => handleOperation('−')} className={`${operatorClass} button`}>−</Button>
 
-              <Button onClick={() => handleNumber('4')} className={numberClass}>4</Button>
-              <Button onClick={() => handleNumber('5')} className={numberClass}>5</Button>
-              <Button onClick={() => handleNumber('6')} className={numberClass}>6</Button>
-              <Button onClick={() => handleOperation('+')} className={operatorClass}>+</Button>
+              <Button onClick={() => handleNumber('4')} className={`${numberClass} button`}>4</Button>
+              <Button onClick={() => handleNumber('5')} className={`${numberClass} button`}>5</Button>
+              <Button onClick={() => handleNumber('6')} className={`${numberClass} button`}>6</Button>
+              <Button onClick={() => handleOperation('+')} className={`${operatorClass} button`}>+</Button>
 
-              <Button onClick={() => handleNumber('1')} className={numberClass}>1</Button>
-              <Button onClick={() => handleNumber('2')} className={numberClass}>2</Button>
-              <Button onClick={() => handleNumber('3')} className={numberClass}>3</Button>
-              <Button onClick={handleEquals} className={`${operatorClass} row-span-2`}>=</Button>
+              <Button onClick={() => handleNumber('1')} className={`${numberClass} button`}>1</Button>
+              <Button onClick={() => handleNumber('2')} className={`${numberClass} button`}>2</Button>
+              <Button onClick={() => handleNumber('3')} className={`${numberClass} button`}>3</Button>
+              <Button onClick={handleEquals} className={`${operatorClass} button row-span-2`}>=</Button>
 
-              <Button onClick={() => handleNumber('0')} className={`${numberClass} col-span-2`}>0</Button>
-              <Button onClick={handleDecimal} className={numberClass}>.</Button>
+              <Button onClick={() => handleNumber('0')} className={`${numberClass} button col-span-2`}>0</Button>
+              <Button onClick={handleDecimal} className={`${numberClass} button`}>.</Button>
             </>
           )}
         </div>

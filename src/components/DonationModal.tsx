@@ -13,12 +13,8 @@ export const DonationModal = ({ isOpen, onClose, amount }: DonationModalProps) =
   const { theme } = useTheme();
   
   const handleDonate = () => {
-    // Format amount to 2 decimal places
-    const formattedAmount = amount.toFixed(2);
-    
-    // Redirect to Stripe payment (replace with your Stripe link)
-    const stripeUrl = `https://donate.stripe.com/test?amount=${Math.round(amount * 100)}`;
-    window.open(stripeUrl, '_blank');
+    // Redirect to Buy Me a Coffee - users can donate any amount they want
+    window.open('https://buymeacoffee.com/tanayvasishtha', '_blank');
     onClose();
   };
 
@@ -86,7 +82,7 @@ export const DonationModal = ({ isOpen, onClose, amount }: DonationModalProps) =
               size="lg"
             >
               <Heart className="w-5 h-5 mr-2" />
-              Donate ${amount.toFixed(2)}
+              Donate ${amount.toFixed(2)} or More
             </Button>
             
             <Button
@@ -101,7 +97,7 @@ export const DonationModal = ({ isOpen, onClose, amount }: DonationModalProps) =
 
           {/* Disclaimer */}
           <p className="text-xs text-muted-foreground text-center">
-            No payment information is stored. Donations are processed securely through Stripe.
+            You'll be redirected to Buy Me a Coffee where you can donate any amount you'd like. Thank you for your support!
           </p>
         </div>
       </DialogContent>

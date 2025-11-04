@@ -19,6 +19,14 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const root = document.documentElement;
     root.setAttribute('data-theme', theme);
     localStorage.setItem('basedcalc-theme', theme);
+
+    // Toggle glassmorphism body background when active
+    const body = document.body;
+    if (theme === 'glassmorphism') {
+      body.classList.add('glassmorphism-theme-active');
+    } else {
+      body.classList.remove('glassmorphism-theme-active');
+    }
   }, [theme]);
 
   const setTheme = (newTheme: Theme) => {
