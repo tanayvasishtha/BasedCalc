@@ -35,7 +35,7 @@ export const TopNav = () => {
           asChild
         >
           <a
-            href="https://peerlist.io/yourusername"
+            href="https://peerlist.io/tanayvasishtha/project/basedcalc--based-for-animal-welfare"
             target="_blank"
             rel="noopener noreferrer"
           >

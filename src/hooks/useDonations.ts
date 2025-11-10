@@ -25,8 +25,14 @@ export const useDonations = () => {
   const [error, setError] = useState<string | null>(null);
 
   const fetchDonations = async () => {
-    // If no API URL configured, skip network calls and keep zeros
+    // If no API URL configured, seed with a simple dummy donation
     if (!DONATIONS_API_URL) {
+      setDonationData({
+        total: 10,
+        donors: [
+          { name: 'sukhanishri', amount: 10, timeAgo: 'Just now' },
+        ],
+      });
       setLoading(false);
       return;
     }
